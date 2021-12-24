@@ -17,6 +17,7 @@ module.exports = {
 		'prettier/prettier': 'error',
 		'react/prop-types': 'off',
 		'no-unused-vars': 'off',
+		'prefer-template': 'off',
 		'react/function-component-definition': [
 			2,
 			{

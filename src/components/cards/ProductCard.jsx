@@ -2,7 +2,7 @@ import React from 'react';
 import './ProductCard.css';
 
 const ProductCard = (props) => {
-	const { id, title, image } = props;
+	const { id, title, image, productOnClick } = props;
 
 	return (
 		<div className='product-card'>
@@ -13,7 +13,9 @@ const ProductCard = (props) => {
 			<div className='product-card-footer'>
 				<h3>{title}</h3>
 				<div className='product-card-button'>
-					<h3>Go to detail</h3>
+					<button type='button' onClick={() => productOnClick(id)}>
+						Go to detail
+					</button>
 				</div>
 			</div>
 		</div>

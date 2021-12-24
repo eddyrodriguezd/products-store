@@ -1,5 +1,17 @@
+.product-modal-container {
+    width: 60%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left:20%;
+    height: 600px;
+    background: rgba(0, 0, 0, 0.5);
+}
+
 .product-modal {
-    background-color: #5b83ad;
-    width: 500px;
-    height: 200px
+    width: 650px;
+    height: 500px;
+    background: red;
 }

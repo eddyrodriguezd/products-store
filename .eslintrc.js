@@ -15,6 +15,7 @@ module.exports = {
 	plugins: ['react', 'prettier'],
 	rules: {
 		'prettier/prettier': 'error',
+		'react/prop-types': 'off',
 		'react/function-component-definition': [
 			2,
 			{

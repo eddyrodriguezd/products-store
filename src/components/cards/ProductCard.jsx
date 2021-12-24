@@ -12,10 +12,13 @@ const ProductCard = (props) => {
 			</div>
 			<div className='product-card-footer'>
 				<h3>{title}</h3>
-				<div className='product-card-button'>
-					<button type='button' onClick={() => productOnClick(id)}>
-						Go to detail
-					</button>
+				<div
+					className='product-card-button'
+					role='button'
+					onClick={() => productOnClick(id)}
+					onKeyDown={() => productOnClick(id)}
+					tabIndex={0}>
+					Go to detail
 				</div>
 			</div>
 		</div>

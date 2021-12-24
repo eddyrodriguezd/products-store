@@ -27,6 +27,7 @@
 
 .product-card-button {
     position: absolute;
+    height: 25px;
     right: 10px;
     top: 20px;
     background-color: #04AA6D;

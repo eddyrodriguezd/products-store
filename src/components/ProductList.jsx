@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 
 import './ProductList.css';
@@ -7,6 +7,7 @@ import ProductCard from './cards/ProductCard';
 import ProductDetailModal from './modals/ProductDetailModal';
 
 const ProductList = () => {
+	const wrapperRef = useRef(null);
 	const [products, setProducts] = useState([]);
 	const [chosenProductId, setChosenProductId] = useState(0);
 	const [chosenProduct, setChosenProduct] = useState({});
@@ -15,10 +16,6 @@ const ProductList = () => {
 	axios.get('https://fakestoreapi.com/products').then((result) => {
 		setProducts(result.data);
 	});
-
-	/* useEffect(() => {
-
-	}, []); */
 
 	useEffect(() => {
 		console.log('Product changed: ' + chosenProductId);
@@ -38,6 +35,22 @@ const ProductList = () => {
 		setChosenProductId(id);
 	};
 
+	const outsideModalClicked = (event) => {
+		console.log('is it a fake alarm?');
+		if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+			console.log('outside modal clicked');
+			setModalVisible(false);
+			setChosenProductId(0);
+		}
+	};
+
+	useEffect(() => {
+		document.addEventListener('click', outsideModalClicked, false);
+		return () => {
+			document.removeEventListener('click', outsideModalClicked, false);
+		};
+	}, []);
+
 	return (
 		<div className='products-flex-container'>
 			{products.map((item) => (
@@ -50,6 +63,7 @@ const ProductList = () => {
 			))}
 			{isModalVisible && chosenProductId !== 0 ? (
 				<ProductDetailModal
+					ref={wrapperRef}
 					id={chosenProduct.id}
 					title={chosenProduct.title}
 					price={chosenProduct.price}

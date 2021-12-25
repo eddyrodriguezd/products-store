@@ -4,6 +4,7 @@ import './ProductDetailModal.css';
 const ProductDetailModal = ({
 	modalRef,
 	id,
+	image,
 	title,
 	price,
 	description,
@@ -14,7 +15,10 @@ const ProductDetailModal = ({
 }) =>
 	showModal ? (
 		<div className='product-modal-container' ref={modalRef}>
-			<div className='product-modal'>
+			<div className='product-modal-image'>
+				<img src={image} alt={title} />
+			</div>
+			<div className='product-modal-text'>
 				<h3>Id: {id}</h3>
 				<h3>Title: {title}</h3>
 				<h3>Price: {price}</h3>

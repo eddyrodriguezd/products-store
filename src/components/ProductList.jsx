@@ -50,7 +50,7 @@ const ProductList = () => {
 	}, []);
 
 	return (
-		<div className='products-flex-container' /* onClick={closeModal} onKeyDown={closeModal} */>
+		<div className='products-flex-container'>
 			{products.map((item) => (
 				<ProductCard
 					id={item.id}
@@ -59,12 +59,10 @@ const ProductList = () => {
 					productOnClick={(id) => setChosenId(id)}
 				/>
 			))}
-			{console.log('isModalVisible? ' + showModal)}
-			{console.log('chosenProduct? ' + chosenProduct)}
-			{/* console.log('chosenProduct.rate? ' + chosenProduct.rating.rate) */}
 			<ProductDetailModal
 				ref={modalRef}
 				id={chosenProduct.id}
+				image={chosenProduct.image}
 				title={chosenProduct.title}
 				price={chosenProduct.price}
 				description={chosenProduct.description}

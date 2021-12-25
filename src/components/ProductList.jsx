@@ -11,7 +11,8 @@ const ProductList = () => {
 	const [products, setProducts] = useState([]);
 	const [chosenId, setChosenId] = useState(0);
 	const [chosenProduct, setChosenProduct] = useState({});
-	const [isModalVisible, setModalVisible] = useState(false);
+
+	const [showModal, setShowModal] = useState(false);
 
 	useEffect(() => {
 		console.log('Fetching information from API');
@@ -28,7 +29,7 @@ const ProductList = () => {
 			setChosenProduct(products.find((p) => p.id === chosenId));
 			console.log('Chosen Product: ' + JSON.stringify(chosenProduct));
 
-			setModalVisible(true);
+			setShowModal(true);
 		}
 	}, [chosenId]);
 
@@ -64,23 +65,20 @@ const ProductList = () => {
 					productOnClick={productOnClick}
 				/>
 			))}
-			{console.log('isModalVisible? ' + isModalVisible)}{' '}
-			{console.log('chosenProduct.id? ' + chosenProduct.id)}{' '}
-			{console.log('chosenProduct.title? ' + chosenProduct.title)}
+			{console.log('isModalVisible? ' + showModal)}
 			{console.log('chosenProduct.rating? ' + JSON.stringify(chosenProduct.rating))}
-			{isModalVisible ? (
-				<ProductDetailModal
-					// ref={wrapperRef}
-					id={chosenProduct.id}
-					title={chosenProduct.title}
-					price={chosenProduct.price}
-					description={chosenProduct.description}
-					category={chosenProduct.category}
-					rating={0}
-				/>
-			) : (
-				false
-			)}
+			{/* console.log('chosenProduct.rate? ' + chosenProduct.rating.rate) */}
+			<ProductDetailModal
+				// ref={wrapperRef}
+				id={chosenProduct.id}
+				title={chosenProduct.title}
+				price={chosenProduct.price}
+				description={chosenProduct.description}
+				category={chosenProduct.category}
+				rating={0}
+				showModal={showModal}
+				setShowModal={setShowModal}
+			/>
 		</div>
 	);
 };

@@ -16,6 +16,9 @@ module.exports = {
 	rules: {
 		'prettier/prettier': 'error',
 		'react/prop-types': 'off',
+		'no-unused-vars': 'off',
+		'prefer-template': 'off',
+		'jsx-a11y/no-static-element-interactions': 'off',
 		'react/function-component-definition': [
 			2,
 			{

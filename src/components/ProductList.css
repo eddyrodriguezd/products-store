@@ -1,0 +1,10 @@
+.products-flex-container {
+    background: wheat;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 90%;
+    margin: 0 auto;
+    position: relative;
+}

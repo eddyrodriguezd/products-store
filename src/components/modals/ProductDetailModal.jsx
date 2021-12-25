@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import './ProductDetailModal.css';
 
 const ProductDetailModal = ({
+	modalRef,
 	id,
 	title,
 	price,
@@ -12,14 +13,14 @@ const ProductDetailModal = ({
 	setShowModal,
 }) =>
 	showModal ? (
-		<div className='product-modal-container'>
+		<div className='product-modal-container' ref={modalRef}>
 			<div className='product-modal'>
 				<h3>Id: {id}</h3>
 				<h3>Title: {title}</h3>
 				<h3>Price: {price}</h3>
 				<h3>Description: {description}</h3>
 				<h3>Category: {category}</h3>
-				<h3>Rating: {rating}</h3>
+				<h3>Rate: {rating.rate}</h3>
 			</div>
 			<div
 				className='product-modal-close-button'

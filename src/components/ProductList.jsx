@@ -7,7 +7,8 @@ import ProductCard from './cards/ProductCard';
 import ProductDetailModal from './modals/ProductDetailModal';
 
 const ProductList = () => {
-	// const wrapperRef = useRef(null);
+	const modalRef = useRef(null);
+
 	const [products, setProducts] = useState([]);
 	const [chosenId, setChosenId] = useState(0);
 	const [chosenProduct, setChosenProduct] = useState({});
@@ -33,49 +34,42 @@ const ProductList = () => {
 		}
 	}, [chosenId]);
 
-	const productOnClick = (id) => {
-		console.log('Product ' + id + ' clicked');
-		setChosenId(id);
+	const outsideModalClicked = (event) => {
+		if (modalRef.current !== event.target) {
+			console.log('Click detected outside the modal');
+			setShowModal(false);
+			setChosenId(0);
+		}
 	};
 
-	/* const outsideModalClicked = (event) => {
-		console.log('is it a fake alarm?');
-		if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-			console.log('outside modal clicked');
-			setModalVisible(false);
-			setChosenProductId(0);
-		}
-	}; */
-
-	/* useEffect(() => {
+	useEffect(() => {
 		document.addEventListener('click', outsideModalClicked, false);
 		return () => {
 			document.removeEventListener('click', outsideModalClicked, false);
 		};
-	}, []); */
+	}, []);
 
 	return (
-		<div className='products-flex-container'>
-			{console.log('RENDERIZANDO...')}
+		<div className='products-flex-container' /* onClick={closeModal} onKeyDown={closeModal} */>
 			{products.map((item) => (
 				<ProductCard
 					id={item.id}
 					title={item.title}
 					image={item.image}
-					productOnClick={productOnClick}
+					productOnClick={(id) => setChosenId(id)}
 				/>
 			))}
 			{console.log('isModalVisible? ' + showModal)}
-			{console.log('chosenProduct.rating? ' + JSON.stringify(chosenProduct.rating))}
+			{console.log('chosenProduct? ' + chosenProduct)}
 			{/* console.log('chosenProduct.rate? ' + chosenProduct.rating.rate) */}
 			<ProductDetailModal
-				// ref={wrapperRef}
+				ref={modalRef}
 				id={chosenProduct.id}
 				title={chosenProduct.title}
 				price={chosenProduct.price}
 				description={chosenProduct.description}
 				category={chosenProduct.category}
-				rating={0}
+				rating={chosenProduct.rating}
 				showModal={showModal}
 				setShowModal={setShowModal}
 			/>

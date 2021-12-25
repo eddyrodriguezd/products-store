@@ -7,63 +7,70 @@ import ProductCard from './cards/ProductCard';
 import ProductDetailModal from './modals/ProductDetailModal';
 
 const ProductList = () => {
-	const wrapperRef = useRef(null);
+	// const wrapperRef = useRef(null);
 	const [products, setProducts] = useState([]);
-	const [chosenProductId, setChosenProductId] = useState(0);
+	const [chosenId, setChosenId] = useState(0);
 	const [chosenProduct, setChosenProduct] = useState({});
 	const [isModalVisible, setModalVisible] = useState(false);
 
-	axios.get('https://fakestoreapi.com/products').then((result) => {
-		setProducts(result.data);
-	});
+	useEffect(() => {
+		console.log('Fetching information from API');
+		axios.get('https://fakestoreapi.com/products').then((result) => {
+			console.log('Information from API: ' + JSON.stringify(result.data));
+			setProducts(result.data);
+		});
+	}, []);
 
 	useEffect(() => {
-		console.log('Product changed: ' + chosenProductId);
+		if (chosenId !== 0) {
+			console.log('ID to look for: ' + chosenId);
 
-		if (chosenProductId !== 0) {
-			axios.get('https://fakestoreapi.com/products/' + chosenProductId).then((result) => {
-				console.log('retrieved data: ' + result.data);
-				setChosenProduct(result.data);
-			});
+			setChosenProduct(products.find((p) => p.id === chosenId));
+			console.log('Chosen Product: ' + JSON.stringify(chosenProduct));
 
 			setModalVisible(true);
 		}
-	}, [chosenProductId]);
+	}, [chosenId]);
 
-	const productClicked = (id) => {
-		console.log('product ' + id + ' clicked');
-		setChosenProductId(id);
+	const productOnClick = (id) => {
+		console.log('Product ' + id + ' clicked');
+		setChosenId(id);
 	};
 
-	const outsideModalClicked = (event) => {
+	/* const outsideModalClicked = (event) => {
 		console.log('is it a fake alarm?');
 		if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
 			console.log('outside modal clicked');
 			setModalVisible(false);
 			setChosenProductId(0);
 		}
-	};
+	}; */
 
-	useEffect(() => {
+	/* useEffect(() => {
 		document.addEventListener('click', outsideModalClicked, false);
 		return () => {
 			document.removeEventListener('click', outsideModalClicked, false);
 		};
-	}, []);
+	}, []); */
 
 	return (
 		<div className='products-flex-container'>
+			{console.log('RENDERIZANDO...')}
 			{products.map((item) => (
 				<ProductCard
 					id={item.id}
 					title={item.title}
 					image={item.image}
-					productOnClick={productClicked}
+					productOnClick={productOnClick}
 				/>
 			))}
-			{isModalVisible && chosenProductId !== 0 ? (
+			{console.log('isModalVisible? ' + isModalVisible)}{' '}
+			{console.log('chosenProduct.id? ' + chosenProduct.id)}{' '}
+			{console.log('chosenProduct.title? ' + chosenProduct.title)}
+			{console.log('chosenProduct.rating? ' + JSON.stringify(chosenProduct.rating))}
+			{isModalVisible ? (
 				<ProductDetailModal
-					ref={wrapperRef}
+					// ref={wrapperRef}
 					id={chosenProduct.id}
 					title={chosenProduct.title}
 					price={chosenProduct.price}
@@ -72,7 +79,7 @@ const ProductList = () => {
 					rating={0}
 				/>
 			) : (
-				<h1>Adiós</h1>
+				false
 			)}
 		</div>
 	);

@@ -1,36 +1,30 @@
 import React, { useEffect, useRef, useState } from 'react';
-import axios from 'axios';
 
 import './ProductList.css';
 
 import ProductCard from './cards/ProductCard';
 import ProductDetailModal from './modals/ProductDetailModal';
 
-const ProductList = () => {
+const ProductList = ({ products }) => {
 	const modalRef = useRef(null);
 
-	const [products, setProducts] = useState([]);
 	const [chosenId, setChosenId] = useState(0);
 	const [chosenProduct, setChosenProduct] = useState({});
 
 	const [showModal, setShowModal] = useState(false);
 
 	useEffect(() => {
-		console.log('Fetching information from API');
-		axios.get('https://fakestoreapi.com/products').then((result) => {
-			console.log('Information from API: ' + JSON.stringify(result.data));
-			setProducts(result.data);
-		});
-	}, []);
-
-	useEffect(() => {
 		if (chosenId !== 0) {
-			console.log('ID to look for: ' + chosenId);
+			if (chosenId === -1) {
+				console.log('Timer is over');
+			} else {
+				console.log(`ID to look for: ${chosenId}`);
 
-			setChosenProduct(products.find((p) => p.id === chosenId));
-			console.log('Chosen Product: ' + JSON.stringify(chosenProduct));
+				setChosenProduct(products.find((p) => p.id === chosenId));
+				console.log(`Chosen Product: ${JSON.stringify(chosenProduct)}`);
 
-			setShowModal(true);
+				setShowModal(true);
+			}
 		}
 	}, [chosenId]);
 
@@ -57,6 +51,7 @@ const ProductList = () => {
 					title={item.title}
 					image={item.image}
 					productOnClick={(id) => setChosenId(id)}
+					maxTime={item.maxTime}
 				/>
 			))}
 			<ProductDetailModal

@@ -14,11 +14,13 @@ module.exports = {
 	},
 	plugins: ['react', 'prettier'],
 	rules: {
-		'prettier/prettier': 'error',
+		'prettier/prettier': [
+			'error',
+			{
+				endOfLine: 'auto',
+			},
+		],
 		'react/prop-types': 'off',
-		'no-unused-vars': 'off',
-		'prefer-template': 'off',
-		'jsx-a11y/no-static-element-interactions': 'off',
 		'react/function-component-definition': [
 			2,
 			{

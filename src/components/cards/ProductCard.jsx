@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { formatCountDownTimer } from '../helpers/helper';
+import { formatCountDownTimer } from '../../helpers/helper';
 import './ProductCard.css';
 
 const ProductCard = ({ id, title, image, productOnClick, maxTime }) => {

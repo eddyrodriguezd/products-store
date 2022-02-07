@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import ProductList from '../components/ProductList';
+import TopNav from '../components/topNav/TopNav';
 
-import { getRandomInt, addSecondsToDate } from '../components/helpers/helper';
+import { getRandomInt, addSecondsToDate } from '../helpers/helper';
 
 const Products = () => {
 	const [products, setProducts] = useState([]);
@@ -13,7 +14,7 @@ const Products = () => {
 			setProducts(
 				result.data.map((product) => ({
 					...product,
-					maxTime: addSecondsToDate(new Date(), getRandomInt(6, 18)).getTime(),
+					maxTime: addSecondsToDate(new Date(), getRandomInt(60, 180)).getTime(),
 				}))
 			);
 			console.log(`Information fetched from API: ${JSON.stringify(products)}`);
@@ -22,7 +23,7 @@ const Products = () => {
 
 	return (
 		<div>
-			<h1>Products</h1>
+			<TopNav />
 			<ProductList products={products} />
 		</div>
 	);

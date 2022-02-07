@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import './ProductList.css';
 
 import ProductCard from './cards/ProductCard';
-import ProductDetailModal from './modals/ProductDetailModal';
+import ProductDetailModal from './modals/products/ProductDetailModal';
 
 const ProductList = ({ products }) => {
 	const modalRef = useRef(null);

@@ -3,7 +3,6 @@ import axios from 'axios';
 
 import ProductList from '../components/ProductList';
 import TopNav from '../components/topNav/TopNav';
-// import AboutModal from '../components/modals/about/AboutModal';
 
 import { getRandomInt, addSecondsToDate } from '../helpers/helper';
 
@@ -17,14 +16,13 @@ const Products = () => {
 	const [products, setProducts] = useState([]);
 
 	useEffect(() => {
-		axios.get('https://fakestoreapi.com/products').then((result) => {
+		axios.get(process.env.REACT_APP_BACKEND_ENDPOINT).then((result) => {
 			setProducts(
 				result.data.map((product) => ({
 					...product,
 					maxTime: addSecondsToDate(new Date(), getRandomInt(60, 180)).getTime(),
 				}))
 			);
-			console.log(`Information fetched from API: ${JSON.stringify(products)}`);
 		});
 	}, []);
 
@@ -32,18 +30,15 @@ const Products = () => {
 		switch (event.target) {
 			case aboutModalRef.current:
 				if (setShowAboutModal) {
-					console.log('Click detected outside the ABOUT modal');
 					setShowAboutModal(false);
 				}
 				break;
 			case productModalRef.current:
 				if (setShowProductModal) {
-					console.log('Click detected outside the PRODUCT modal');
 					setShowProductModal(false);
 				}
 				break;
 			default:
-				console.log('Got here');
 		}
 	};
 
@@ -71,11 +66,6 @@ const Products = () => {
 				setShowAboutModal={setShowAboutModal}
 				products={products}
 			/>
-			{/* <AboutModal
-				modalRef={aboutModalRef}
-				showModal={showAboutModal}
-				setShowModal={setShowAboutModal}
-			/> */}
 		</div>
 	);
 };

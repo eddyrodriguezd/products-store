@@ -21,12 +21,7 @@ const ProductList = ({
 	useEffect(() => {
 		if (chosenId !== 0) {
 			setShowAboutModal(false);
-
-			console.log(`ID to look for: ${chosenId}`);
-
 			setChosenProduct(products.find((p) => p.id === chosenId));
-			console.log(`Chosen Product: ${JSON.stringify(chosenProduct)}`);
-
 			setShowProductModal(true);
 		}
 	}, [chosenId]);

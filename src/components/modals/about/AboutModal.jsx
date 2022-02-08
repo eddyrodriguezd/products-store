@@ -1,13 +1,12 @@
 import React from 'react';
 import './AboutModal.css';
+import devImage from '../../../assets/eddy.jpg';
 
-const AboutModal = ({ modalRef, showModal, setShowModal }) => {
-	console.log('Rendering about modal.... showModal=', showModal);
-
-	return showModal ? (
+const AboutModal = ({ modalRef, showModal, setShowModal }) =>
+	showModal ? (
 		<div className='about-modal-container' ref={modalRef}>
 			<div className='about-modal-image'>
-				<img src='../../../assets/devPhoto.jpg' alt='Developer' />
+				<img src={devImage} alt='Developer' />
 			</div>
 			<div className='about-modal-text'>
 				<h3>Developed by: Eddy Rodriguez</h3>
@@ -19,8 +18,14 @@ const AboutModal = ({ modalRef, showModal, setShowModal }) => {
 				</h3>
 				<br />
 				<h3>Contact information</h3>
-				<h3>Mail: e.rodriguezd@pucp.edu.pe</h3>
-				<h3>Github: https://github.com/eddyrodriguezd/</h3>
+				<h3>
+					Mail:
+					<a href='mailto:e.rodriguezd@pucp.edu.pe'>e.rodriguezd@pucp.edu.pe</a>
+				</h3>
+				<h3>
+					Github:
+					<a href='https://github.com/eddyrodriguezd/'>https://github.com/eddyrodriguezd/</a>
+				</h3>
 			</div>
 			<div
 				className='about-modal-close-button'
@@ -32,6 +37,5 @@ const AboutModal = ({ modalRef, showModal, setShowModal }) => {
 			</div>
 		</div>
 	) : null;
-};
 
 export default AboutModal;

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Loading } from 'react-loading-dot';
 import axios from 'axios';
 
 import ProductList from '../components/ProductList';
@@ -7,6 +8,8 @@ import TopNav from '../components/topNav/TopNav';
 import { getRandomInt, addSecondsToDate } from '../helpers/helper';
 
 const Products = () => {
+	const [loading, setLoading] = useState(false);
+
 	const productModalRef = useRef(null);
 	const aboutModalRef = useRef(null);
 
@@ -16,14 +19,18 @@ const Products = () => {
 	const [products, setProducts] = useState([]);
 
 	useEffect(() => {
-		axios.get(process.env.REACT_APP_BACKEND_ENDPOINT).then((result) => {
-			setProducts(
-				result.data.map((product) => ({
-					...product,
-					maxTime: addSecondsToDate(new Date(), getRandomInt(60, 180)).getTime(),
-				}))
-			);
-		});
+		setLoading(true);
+		axios
+			.get(process.env.REACT_APP_FAKE_STORE_API)
+			.then((result) => {
+				setProducts(
+					result.data.map((product) => ({
+						...product,
+						maxTime: addSecondsToDate(new Date(), getRandomInt(60, 180)).getTime(),
+					}))
+				);
+			})
+			.finally(() => setLoading(false));
 	}, []);
 
 	const outsideModalClicked = (event) => {
@@ -57,15 +64,23 @@ const Products = () => {
 					setShowProductModal(false);
 				}}
 			/>
-			<ProductList
-				productModalRef={productModalRef}
-				aboutModalRef={aboutModalRef}
-				showProductModal={showProductModal}
-				setShowProductModal={setShowProductModal}
-				showAboutModal={showAboutModal}
-				setShowAboutModal={setShowAboutModal}
-				products={products}
-			/>
+			<div>
+				{loading ? (
+					<Loading />
+				) : (
+					<div>
+						<ProductList
+							productModalRef={productModalRef}
+							aboutModalRef={aboutModalRef}
+							showProductModal={showProductModal}
+							setShowProductModal={setShowProductModal}
+							showAboutModal={showAboutModal}
+							setShowAboutModal={setShowAboutModal}
+							products={products}
+						/>
+					</div>
+				)}
+			</div>
 		</div>
 	);
 };

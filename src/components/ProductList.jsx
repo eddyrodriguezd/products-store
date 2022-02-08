@@ -1,47 +1,45 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import './ProductList.css';
 
 import ProductCard from './cards/ProductCard';
-import ProductDetailModal from './modals/ProductDetailModal';
+import ProductDetailModal from './modals/products/ProductDetailModal';
+import AboutModal from './modals/about/AboutModal';
 
-const ProductList = ({ products }) => {
-	const modalRef = useRef(null);
-
+const ProductList = ({
+	productModalRef,
+	aboutModalRef,
+	showProductModal,
+	setShowProductModal,
+	showAboutModal,
+	setShowAboutModal,
+	products,
+}) => {
 	const [chosenId, setChosenId] = useState(0);
 	const [chosenProduct, setChosenProduct] = useState({});
 
-	const [showModal, setShowModal] = useState(false);
-
 	useEffect(() => {
 		if (chosenId !== 0) {
-			if (chosenId === -1) {
-				console.log('Timer is over');
-			} else {
-				console.log(`ID to look for: ${chosenId}`);
-
-				setChosenProduct(products.find((p) => p.id === chosenId));
-				console.log(`Chosen Product: ${JSON.stringify(chosenProduct)}`);
-
-				setShowModal(true);
-			}
+			setShowAboutModal(false);
+			setChosenProduct(products.find((p) => p.id === chosenId));
+			setShowProductModal(true);
 		}
 	}, [chosenId]);
 
-	const outsideModalClicked = (event) => {
-		if (modalRef.current !== event.target) {
-			console.log('Click detected outside the modal');
-			setShowModal(false);
-			setChosenId(0);
+	useEffect(() => {
+		setChosenId(0);
+		if (!showProductModal && showAboutModal) {
+			setShowAboutModal(true);
 		}
-	};
+	}, [showProductModal]);
 
 	useEffect(() => {
-		document.addEventListener('click', outsideModalClicked, false);
-		return () => {
-			document.removeEventListener('click', outsideModalClicked, false);
-		};
-	}, []);
+		if (!showAboutModal) {
+			if (chosenId !== 0) {
+				setShowProductModal(true);
+			}
+		}
+	}, [showAboutModal]);
 
 	return (
 		<div className='products-flex-container'>
@@ -50,12 +48,20 @@ const ProductList = ({ products }) => {
 					id={item.id}
 					title={item.title}
 					image={item.image}
-					productOnClick={(id) => setChosenId(id)}
+					productOnClick={(id) => {
+						setShowAboutModal(false);
+						setChosenId(id);
+					}}
 					maxTime={item.maxTime}
 				/>
 			))}
+			<AboutModal
+				modalRef={aboutModalRef}
+				showModal={showAboutModal}
+				setShowModal={setShowAboutModal}
+			/>
 			<ProductDetailModal
-				ref={modalRef}
+				modalRef={productModalRef}
 				id={chosenProduct.id}
 				image={chosenProduct.image}
 				title={chosenProduct.title}
@@ -63,8 +69,8 @@ const ProductList = ({ products }) => {
 				description={chosenProduct.description}
 				category={chosenProduct.category}
 				rating={chosenProduct.rating}
-				showModal={showModal}
-				setShowModal={setShowModal}
+				showModal={showProductModal}
+				setShowModal={setShowProductModal}
 			/>
 		</div>
 	);

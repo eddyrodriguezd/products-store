@@ -1,29 +1,71 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
 import ProductList from '../components/ProductList';
+import TopNav from '../components/topNav/TopNav';
 
-import { getRandomInt, addSecondsToDate } from '../components/helpers/helper';
+import { getRandomInt, addSecondsToDate } from '../helpers/helper';
 
 const Products = () => {
+	const productModalRef = useRef(null);
+	const aboutModalRef = useRef(null);
+
+	const [showProductModal, setShowProductModal] = useState(false);
+	const [showAboutModal, setShowAboutModal] = useState(false);
+
 	const [products, setProducts] = useState([]);
 
 	useEffect(() => {
-		axios.get('https://fakestoreapi.com/products').then((result) => {
+		axios.get(process.env.REACT_APP_BACKEND_ENDPOINT).then((result) => {
 			setProducts(
 				result.data.map((product) => ({
 					...product,
-					maxTime: addSecondsToDate(new Date(), getRandomInt(6, 18)).getTime(),
+					maxTime: addSecondsToDate(new Date(), getRandomInt(60, 180)).getTime(),
 				}))
 			);
-			console.log(`Information fetched from API: ${JSON.stringify(products)}`);
 		});
+	}, []);
+
+	const outsideModalClicked = (event) => {
+		switch (event.target) {
+			case aboutModalRef.current:
+				if (setShowAboutModal) {
+					setShowAboutModal(false);
+				}
+				break;
+			case productModalRef.current:
+				if (setShowProductModal) {
+					setShowProductModal(false);
+				}
+				break;
+			default:
+		}
+	};
+
+	useEffect(() => {
+		document.addEventListener('click', outsideModalClicked, false);
+		return () => {
+			document.removeEventListener('click', outsideModalClicked, false);
+		};
 	}, []);
 
 	return (
 		<div>
-			<h1>Products</h1>
-			<ProductList products={products} />
+			<TopNav
+				onAboutClick={() => {
+					setShowAboutModal(true);
+					setShowProductModal(false);
+				}}
+			/>
+			<ProductList
+				productModalRef={productModalRef}
+				aboutModalRef={aboutModalRef}
+				showProductModal={showProductModal}
+				setShowProductModal={setShowProductModal}
+				showAboutModal={showAboutModal}
+				setShowAboutModal={setShowAboutModal}
+				products={products}
+			/>
 		</div>
 	);
 };

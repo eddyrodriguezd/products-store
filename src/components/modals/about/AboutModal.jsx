@@ -1,8 +1,10 @@
 import React from 'react';
 import './AboutModal.css';
 
-const AboutModal = ({ modalRef, showModal, setShowModal }) =>
-	showModal ? (
+const AboutModal = ({ modalRef, showModal, setShowModal }) => {
+	console.log('Rendering about modal.... showModal=', showModal);
+
+	return showModal ? (
 		<div className='about-modal-container' ref={modalRef}>
 			<div className='about-modal-image'>
 				<img src='../../../assets/devPhoto.jpg' alt='Developer' />
@@ -30,5 +32,6 @@ const AboutModal = ({ modalRef, showModal, setShowModal }) =>
 			</div>
 		</div>
 	) : null;
+};
 
 export default AboutModal;

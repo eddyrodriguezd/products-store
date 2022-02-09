@@ -62,7 +62,6 @@ const ProductList = ({
 			/>
 			<ProductDetailModal
 				modalRef={productModalRef}
-				id={chosenProduct.id}
 				image={chosenProduct.image}
 				title={chosenProduct.title}
 				price={chosenProduct.price}

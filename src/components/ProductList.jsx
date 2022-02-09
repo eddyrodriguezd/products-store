@@ -15,6 +15,8 @@ const ProductList = ({
 	setShowAboutModal,
 	products,
 }) => {
+	const [yPosition, setYPosition] = useState(0);
+
 	const [chosenId, setChosenId] = useState(0);
 	const [chosenProduct, setChosenProduct] = useState({});
 
@@ -41,6 +43,19 @@ const ProductList = ({
 		}
 	}, [showAboutModal]);
 
+	const handleScroll = () => {
+		const position = window.pageYOffset;
+		setYPosition(position);
+	};
+
+	useEffect(() => {
+		window.addEventListener('scroll', handleScroll, { passive: true });
+
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+		};
+	}, []);
+
 	return (
 		<div className='products-flex-container'>
 			{products.map((item) => (
@@ -62,6 +77,7 @@ const ProductList = ({
 			/>
 			<ProductDetailModal
 				modalRef={productModalRef}
+				yPosition={yPosition}
 				image={chosenProduct.image}
 				title={chosenProduct.title}
 				price={chosenProduct.price}

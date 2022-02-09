@@ -3,6 +3,7 @@ import './ProductDetailModal.css';
 
 const ProductDetailModal = ({
 	modalRef,
+	yPosition,
 	image,
 	title,
 	price,
@@ -13,7 +14,10 @@ const ProductDetailModal = ({
 	setShowModal,
 }) =>
 	showModal ? (
-		<div className='product-modal-container' ref={modalRef}>
+		<div
+			style={{ transform: `translateY(${yPosition}px)` }}
+			className='product-modal-container'
+			ref={modalRef}>
 			<div className='product-modal-image'>
 				<img src={image} alt={title} />
 			</div>

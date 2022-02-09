@@ -18,20 +18,25 @@ const ProductCard = ({ id, title, image, productOnClick, maxTime }) => {
 
 	return (
 		<div className='product-card'>
-			<h3>{id}</h3>
 			<div className='product-card-img-container'>
 				<img src={image} alt={title} />
 			</div>
 			<div className='product-card-footer'>
 				<h3>{title}</h3>
-				<h3>{formatCountDownTimer(timeLeft)}</h3>
-				<div
-					className='product-card-button'
-					role='button'
-					onClick={() => (timeLeft > 0 ? productOnClick(id) : productOnClick(0))}
-					onKeyDown={() => (timeLeft > 0 ? productOnClick(id) : productOnClick(0))}
-					tabIndex={0}>
-					Go to detail
+				<div className='product-card-footer-bottom'>
+					<div className='product-card-footer-item'>
+						<h3>{formatCountDownTimer(timeLeft)}</h3>
+					</div>
+					<div className='product-card-footer-item'>
+						<div
+							className='product-card-button'
+							role='button'
+							onClick={() => (timeLeft > 0 ? productOnClick(id) : productOnClick(0))}
+							onKeyDown={() => (timeLeft > 0 ? productOnClick(id) : productOnClick(0))}
+							tabIndex={0}>
+							Go to detail
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

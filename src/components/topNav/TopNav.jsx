@@ -1,5 +1,6 @@
 import React from 'react';
 import './TopNav.css';
+import devIcon from '../../assets/developer-icon.jpeg';
 
 const TopNav = ({ onAboutClick }) => (
 	<div className='top-navbar'>
@@ -9,9 +10,9 @@ const TopNav = ({ onAboutClick }) => (
 			onClick={() => onAboutClick()}
 			onKeyDown={() => onAboutClick()}
 			tabIndex={0}>
-			About
+			<img src={devIcon} alt='dev' />
 		</div>
-		<h1>Products</h1>
+		<h2>Products Catalog</h2>
 	</div>
 );
 

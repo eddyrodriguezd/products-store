@@ -1,26 +1,36 @@
 .product-modal-container {
 	width: 60%;
-	height: 40%;
+	height: 20em;
 	display: flex;
 	justify-content: space-between;
 	flex-wrap: wrap;
 	align-items: center;
 	flex-direction: row;
 	position: absolute;
+	border-style: solid;
+	border-color: #5b83ad;
+	border-width: 0.3em;
 	left: 20%;
 	background: rgba(0, 0, 0, 0.5);
 }
 
-.product-modal-text {
+.product-modal-info {
 	width: 50%;
 	height: 100%;
 	text-align: center;
 	vertical-align: middle;
-	background: #191970;
+	background: #5b83ad;
 }
+.product-modal-text {
+	padding-left: 5%;
+	padding-right: 5%;
+}
+
 .product-modal-text h3 {
 	color: white;
-    font-size: 20px;
+	font-size: 0.8em;
+	text-align: justify;
+	text-justify: inter-word;
 }
 
 .product-modal-image {
@@ -37,17 +47,14 @@
 }
 
 .product-modal-close-button {
-	position: absolute;
-	height: 25px;
-	right: 10px;
-	top: 20px;
-	background-color: #04aa6d;
+	float: right;
+	margin-top: 2%;
+	background-color: black;
 	border: none;
 	color: white;
 	padding: 2px 10px 2px 10px;
 	text-align: center;
 	text-decoration: none;
-	display: inline-block;
 	font-size: 12px;
 	border-radius: 12px;
 	cursor: pointer;

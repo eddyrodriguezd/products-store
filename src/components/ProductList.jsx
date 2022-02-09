@@ -60,6 +60,7 @@ const ProductList = ({
 		<div className='products-flex-container'>
 			{products.map((item) => (
 				<ProductCard
+					key={item.id}
 					id={item.id}
 					title={item.title}
 					image={item.image}
@@ -72,6 +73,7 @@ const ProductList = ({
 			))}
 			<AboutModal
 				modalRef={aboutModalRef}
+				yPosition={yPosition}
 				showModal={showAboutModal}
 				setShowModal={setShowAboutModal}
 			/>

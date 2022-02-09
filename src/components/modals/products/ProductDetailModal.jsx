@@ -28,7 +28,7 @@ const ProductDetailModal = ({
 					onClick={() => setShowModal(false)}
 					onKeyDown={() => setShowModal(false)}
 					tabIndex={0}>
-					Close
+					X
 				</div>
 				<div className='product-modal-text'>
 					<h3>Title: {title}</h3>

@@ -1,8 +1,18 @@
 .top-navbar {
-  background-color: gray;
+	height: 2.7em;
 }
+
+.top-navbar h2 {
+	color: black;
+}
+
 .about-button {
-  float: right;
-  background-color: #04aa6d;
-  padding: 10px;
+	float: right;
+	background-color: white;
+	cursor: pointer;
+	margin-right: 5%;
+}
+
+.about-button img {
+	height: 3em;
 }
